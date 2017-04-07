@@ -23,29 +23,23 @@ class movies():
 class users():
     '''
     Database of the users who took a survey to rate the movies
+    Contains:
+        -user ID number
+        -movie ratings
+        -distance between other users
+        -graph ratings (movie ratings divided by 5)
     '''
     def __init__(self):
         self.number = 0
         self.movie_ratings = []
-        self.similarity_dist = []
+        self.similarity_angle = []
         self.graph_ratings = []
 
     def addRating(self, rating):
         self.movie_ratings.append(rating)
 
     def addSimilarity(self, dist):
-        self.similarity_dist.append(dist)
+        self.similarity_angle.append(dist)
 
     def addGraph(self, fraction):
         self.graph_ratings.append(fraction)
-
-
-#test = movies()
-#test.print_title()
-
-
-
-
-
-
-

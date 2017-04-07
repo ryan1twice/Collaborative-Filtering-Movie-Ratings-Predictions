@@ -9,12 +9,10 @@ from mechanize import Browser
 
 movie_list = [movies() for i in range(10)] #list of movie objects
 
+'''
 # access netflix ratings
-'''
-    Old implementation no longer works so just importing from a text file with last retrieved data
-'''
 iteration = 0
-with open('/collabFiltering/nextflixratings.txt', 'r') as f:
+with open('/Users/ryanhennings/PycharmProjects/collabFiltering/nextflixratings.txt', 'r') as f:
     data = f.readlines()
 
     for line in data:
@@ -26,6 +24,7 @@ with open('/collabFiltering/nextflixratings.txt', 'r') as f:
         movie_list[iteration].name = movie_name
         #movie_list[iteration].print_info()
         iteration = iteration + 1
+
 
 # access Rotten Tomato ratings
 for i in range(0,10,1): #(i=0;i<10;i++)
@@ -93,7 +92,7 @@ print "DONE SCRAPPING IMDB"+'\n'
 
 def getUserRatings(userClass):
     user = [users() for i in range(12)]  # create list of users objects
-    f = open('/collabFiltering/formResponses.csv')
+    f = open('/Users/ryanhennings/PycharmProjects/collabFiltering/formResponses.csv')
     csvfile = csv.reader(f)
     index = 0
     for row in csvfile:
@@ -110,9 +109,8 @@ def getUserRatings(userClass):
     return user
 
 '''
-    Responses from google forms survey
-'''
-f = open('/collabFiltering/formResponses.csv')
+
+f = open('/Users/ryanhennings/PycharmProjects/collabFiltering/formResponses.csv')
 csvfile = csv.reader(f)
 user = [users() for i in range(12)] #list of users
 user2 = [users() for i in range(12)] #list of users
@@ -194,14 +192,29 @@ def printUserSimilarity(userClass):
     # Tite formatting
     nums = []  # create a list 1-10 for movie number in matrix
     nums.extend(range(1,13))
-    print '%-4s|' % (' ') + ' '.join('%6s' % str(x) for x in nums)  # print x axis of matrix title
+    print "Table of Similarity Values (cosine angle)"
+    print '%-4s|' % (' ') + ' '.join('%7s' % str(x) for x in nums)  # print x axis of matrix title
     # seperate matrix info
-    print "-----------------------------------------------------------------------------------------"
-
+    print "-----------------------------------------------------------------------------------------------------"
     # user similarity
     for i in range(0, size, 1):  # (i=0;i<10;i++)  print user number and their ratings
-        print '%-4s|' % (i + 1) + '%s' % ' '.join('%6s' % val for val in userClass[i].similarity_dist)
+        print '%-4s|' % (i + 1) + '%s' % ' '.join('%7s' % val for val in userClass[i].similarity_angle)
     print '\n'
+
+def printMovieSimilarity(userClass):
+    # Tite formatting
+    nums = []  # create a list 1-10 for movie number in matrix
+    nums.extend(range(1, 11))
+    print
+    print '%-4s|' % (' ') + ' '.join('%8s' % str(x) for x in nums)  # print x axis of matrix title
+    # seperate matrix info
+    print "-----------------------------------------------------------------------------------------------"
+
+    # user similarity
+    for i in range(0, 10, 1):  # (i=0;i<10;i++)  print user number and their ratings
+        print '%-4s|' % (i + 1) + '%8s' % ' '.join('%8s' % val for val in userClass[i].movie_ratings)
+    print '\n'
+
 
 #print list of movies and ratings
 def printRatingsTable(moviesClass):
@@ -216,6 +229,7 @@ printUserRatings(user)
 printUserNotSeen(user)
 printRatingsTable(movie_list)
 '''
+
 #movie_list2 = copy.deepcopy(movie_list) #for copying list info to another object
 
 
